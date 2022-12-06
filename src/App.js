@@ -20,12 +20,31 @@ function App() {
     return diceArray;
   }
 
+  function holdDice(id) {
+    setDice((oldDice) =>
+      oldDice.map((die) => {
+        return {
+          ...die,
+          isHeld: die.isHeld | (die.id === id),
+        };
+      })
+    );
+  }
+
   function rollDice() {
     setDice(allNewDice());
   }
 
   const diceElements = dice.map((die) => {
-    return (<Die key={die.id} value={die.value} isHeld={die.isHeld} />);
+    return (
+      <Die
+        key={die.id}
+        value={die.value}
+        isHeld={die.isHeld}
+        id={die.id}
+        holdDice={holdDice}
+      />
+    );
   });
 
   return (

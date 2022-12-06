@@ -5,7 +5,11 @@ const Die = (props) => {
     backgroundColor: props.isHeld ? "#59E391" : "white",
   };
   return (
-    <div className="die--face" style={style}>
+    <div
+      onClick={() => props.holdDice(props.id)}
+      className="die--face"
+      style={style}
+    >
       <h2 className="die--num">{props.value}</h2>
     </div>
   );
