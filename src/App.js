@@ -2,7 +2,8 @@ import "./App.css";
 import Die from "./components/Die";
 import React from "react";
 import { nanoid } from "nanoid";
-
+// import useWindowSize from "./useWindowSize";
+import Confetti from "react-confetti";
 
 function App() {
   const [dice, setDice] = React.useState(allNewDice());
@@ -37,7 +38,6 @@ function App() {
     for (let i = 0; i < 10; i++) {
       diceArray.push(generateNewDie());
     }
-    // console.log(diceArray);
     return diceArray;
   }
 
@@ -74,6 +74,7 @@ function App() {
 
   return (
     <main>
+      {tenzies && <Confetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">
         Roll until all dice are the same. Click each die to freeze it at its
@@ -81,7 +82,7 @@ function App() {
       </p>
       <div className="dice--container">{diceElements}</div>
       <button onClick={rollDice} className="roll--button">
-        Roll
+        {tenzies ? "New Game" : "Roll"}
       </button>
     </main>
   );
