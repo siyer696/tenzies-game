@@ -53,11 +53,16 @@ function App() {
   }
 
   function rollDice() {
-    setDice((oldDice) =>
-      oldDice.map((die) => {
-        return die.isHeld ? die : generateNewDie();
-      })
-    );
+    if (tenzies) {
+      setTenzies(false);
+      setDice(allNewDice());
+    } else {
+      setDice((oldDice) =>
+        oldDice.map((die) => {
+          return die.isHeld ? die : generateNewDie();
+        })
+      );
+    }
   }
 
   const diceElements = dice.map((die) => {
