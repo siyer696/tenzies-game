@@ -8,13 +8,14 @@ import Confetti from "react-confetti";
 function App() {
   const [dice, setDice] = React.useState(allNewDice());
   const [tenzies, setTenzies] = React.useState(false);
+  const [count, setCount] = React.useState(0);
 
   React.useEffect(() => {
     let check = true;
     // we can also use .every function of array instead
     // const allHeld = dice.every(die => die.isHeld)
     for (let i = 0; i < dice.length; i++) {
-      if (dice[i].isHeld == false || dice[i].value != dice[0].value) {
+      if (dice[i].isHeld === false || dice[i].value !== dice[0].value) {
         check = false;
       }
     }
@@ -56,12 +57,14 @@ function App() {
     if (tenzies) {
       setTenzies(false);
       setDice(allNewDice());
+      setCount(0);
     } else {
       setDice((oldDice) =>
         oldDice.map((die) => {
           return die.isHeld ? die : generateNewDie();
         })
       );
+      setCount((oldCount) => oldCount + 1);
     }
   }
 
@@ -86,6 +89,7 @@ function App() {
         current value between rolls.
       </p>
       <div className="dice--container">{diceElements}</div>
+      <p>Total Count is {count}</p>
       <button onClick={rollDice} className="roll--button">
         {tenzies ? "New Game" : "Roll"}
       </button>
