@@ -9,6 +9,9 @@ function App() {
   const [dice, setDice] = React.useState(allNewDice());
   const [tenzies, setTenzies] = React.useState(false);
   const [count, setCount] = React.useState(0);
+  const [highScore, setHighScore] = React.useState(
+    localStorage.getItem("highScore") | 0
+  );
 
   React.useEffect(() => {
     let check = true;
@@ -22,6 +25,8 @@ function App() {
     if (check) {
       setTenzies(true);
       console.log("You won");
+      setHighScore(Math.min(highScore, count));
+      localStorage.setItem("highScore", highScore);
     }
     console.log("Dice state changed");
   }, [dice]);
@@ -90,6 +95,7 @@ function App() {
       </p>
       <div className="dice--container">{diceElements}</div>
       <p>Total Count is {count}</p>
+      <p>High Score : {highScore}</p>
       <button onClick={rollDice} className="roll--button">
         {tenzies ? "New Game" : "Roll"}
       </button>
